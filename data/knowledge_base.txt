@@ -1,0 +1,121 @@
+Machine Learning Fundamentals
+
+Machine learning is a subset of artificial intelligence that enables systems to learn and improve from experience without being explicitly programmed. There are three main types of machine learning: supervised learning, unsupervised learning, and reinforcement learning.
+
+Supervised learning involves training a model on labeled data, where each input has a corresponding output. The model learns to map inputs to outputs. Common supervised learning tasks include classification and regression.
+
+Unsupervised learning works with unlabeled data, where the model discovers patterns and structures on its own. Clustering and dimensionality reduction are common unsupervised learning tasks.
+
+Reinforcement learning involves an agent learning to make decisions by interacting with an environment, receiving rewards or penalties for its actions.
+
+Overfitting and Regularization
+
+Overfitting occurs when a model learns the training data too well, including its noise and peculiarities, leading to poor generalization on new, unseen data. This happens when a model is too complex relative to the amount of training data available.
+
+The bias-variance tradeoff is a fundamental concept in machine learning. High bias means the model is too simple and underfits the data. High variance means the model is too complex and overfits. The optimal model balances both to minimize total error.
+
+Regularization techniques prevent overfitting by adding penalty terms to the loss function. L1 regularization (Lasso) and L2 regularization (Ridge) are common approaches. These techniques discourage overly complex models by penalizing large weights.
+
+Cross-validation is a technique for estimating model performance more reliably. It splits the data into multiple folds, trains the model on different combinations of folds, and averages the results. This provides a more robust estimate of generalization performance.
+
+Neural Networks and Deep Learning
+
+Backpropagation is the fundamental algorithm for training neural networks. It computes gradients of the loss function with respect to each weight by applying the chain rule of calculus. These gradients are then used to update weights via gradient descent.
+
+Convolutional Neural Networks (CNNs) are specialized for processing grid-like data, particularly images. They use convolutional layers to extract local features and pooling layers to reduce spatial dimensions.
+
+Pooling layers in CNNs reduce spatial dimensions, decreasing computational complexity while retaining important features. Max pooling and average pooling are common pooling operations.
+
+LSTM (Long Short-Term Memory) networks address the vanishing gradient problem that occurs in standard recurrent neural networks. They use gating mechanisms that control information flow through the network, allowing them to learn long-term dependencies.
+
+Common activation functions in neural networks include ReLU (Rectified Linear Unit), sigmoid, and tanh. ReLU is popular in deep networks because it helps mitigate the vanishing gradient problem.
+
+Transformers and Modern NLP
+
+The transformer architecture, introduced in "Attention Is All You Need" (2017), uses self-attention mechanisms and processes entire sequences in parallel. This architecture has become the foundation for modern large language models.
+
+Self-attention allows models to weigh the importance of different words relative to each other in a sequence. Each word can attend to all other words, enabling the model to capture long-range dependencies.
+
+Word embeddings represent words as dense vectors where semantically similar words are geometrically close in the embedding space. Word2Vec, GloVe, and FastText are popular word embedding methods.
+
+Transfer learning in NLP involves pre-training large models on massive corpora and then fine-tuning them on downstream tasks. This approach leverages the knowledge learned from large-scale pre-training.
+
+BERT (Bidirectional Encoder Representations from Transformers) uses bidirectional transformer training with masked language modeling and next sentence prediction objectives. This enables BERT to capture bidirectional context.
+
+GPT (Generative Pre-trained Transformer) uses autoregressive training to predict the next token given previous tokens. GPT models are trained on massive text datasets and can be fine-tuned for various downstream tasks.
+
+Instruction tuning involves fine-tuning pre-trained LLMs on instruction-following datasets to improve alignment with human intent. This makes models more responsive to user instructions.
+
+RLHF (Reinforcement Learning from Human Feedback) uses human preferences to align LLMs to be helpful, harmless, and honest. Human raters rank model outputs, and the model is trained to prefer higher-ranked outputs.
+
+Chain-of-thought prompting encourages LLMs to show reasoning step by step, improving performance on complex reasoning tasks. This technique has been shown to significantly improve model performance on challenging problems.
+
+GPT-4 supports up to 128K tokens of context, allowing it to process much longer documents than earlier models.
+
+Retrieval-Augmented Generation (RAG)
+
+Retrieval-Augmented Generation (RAG) combines generative LLMs with retrieval from external knowledge bases to produce grounded, up-to-date answers. RAG enables LLMs to access information beyond their training data.
+
+The main components of a RAG pipeline are a retriever that searches a document store and a generator (LLM) that produces answers from the query and retrieved passages. The retriever finds relevant documents, and the generator synthesizes an answer.
+
+Dense retrieval uses neural embeddings to encode queries and documents, determining relevance by cosine similarity. Dense retrieval is more semantically aware than sparse keyword-based retrieval.
+
+Chunking strategy is important in RAG because it affects retrieval precision and context window fit. Options include fixed-size chunking, semantic chunking, and hierarchical chunking.
+
+Advanced RAG techniques beyond basic retrieval include re-ranking, query expansion, HyDE (Hypothetical Document Embeddings), and iterative retrieval for multi-hop questions.
+
+Vector Databases and Embeddings
+
+Vector databases are used for storing and querying high-dimensional vector embeddings for fast similarity search. They enable efficient retrieval of semantically similar documents.
+
+FAISS (Facebook AI Similarity Search) is a library for efficient similarity search supporting exact and approximate nearest neighbor algorithms. FAISS is widely used for large-scale similarity search.
+
+Text embeddings convert text into numerical vectors where semantically similar texts produce geometrically close vectors. Embeddings capture semantic meaning and enable similarity-based retrieval.
+
+HNSW (Hierarchical Navigable Small World) builds a hierarchical graph for logarithmic-complexity approximate nearest neighbor search. HNSW is a popular algorithm for efficient similarity search.
+
+Hybrid search in vector databases combines dense vector search with sparse keyword search (BM25) using Reciprocal Rank Fusion. This approach combines the benefits of both dense and sparse retrieval.
+
+LangChain and LangSmith
+
+LangChain is an open-source framework for building LLM applications with abstractions for chains, agents, and data connections. It simplifies the development of complex LLM workflows.
+
+LangChain Expression Language (LCEL) is a declarative way to compose chains using the pipe operator, supporting streaming, async, and batching. LCEL enables elegant and efficient chain composition.
+
+LangGraph extends LangChain for stateful multi-actor applications as directed graphs, supporting cycles. LangGraph enables more complex agent workflows.
+
+LangChain supports several memory types including ConversationBufferMemory, ConversationSummaryMemory, ConversationWindowMemory, and vector store memory. These enable different strategies for managing conversation history.
+
+LangChain retrievers fetch relevant documents from a data source given a query, supporting vector stores and BM25. Retrievers are a key component of RAG pipelines.
+
+LangSmith is a platform for debugging, testing, evaluating, and monitoring LLM applications through automatic tracing. It provides visibility into LLM application behavior.
+
+LangSmith traces capture inputs, outputs, latency, token usage, and errors for every component in a chain. This enables detailed analysis of application behavior.
+
+The LangSmith Prompt Hub is a repository for storing, versioning, and sharing prompt templates, supporting A/B testing and rollback. It enables collaborative prompt management.
+
+LangSmith helps monitor production LLM applications by providing latency percentiles, error rates, token costs, and feedback annotations. This enables data-driven optimization.
+
+LangSmith datasets are used for systematic evaluation using example inputs and expected outputs to compare model versions or prompt changes. Datasets enable rigorous evaluation.
+
+Evaluation and Safety
+
+RAGAS (Retrieval-Augmented Generation Assessment) is an open-source framework for evaluating RAG pipelines using LLM-based reference-free metrics. RAGAS enables automated evaluation of RAG systems.
+
+RAGAS computes faithfulness by extracting claims from the answer and checking whether each claim can be inferred from the retrieved context. High faithfulness indicates the answer is grounded in the context.
+
+Answer relevancy in RAGAS measures how well the answer addresses the original question by generating synthetic questions from the answer. High relevancy indicates the answer is on-topic.
+
+Context recall in RAGAS measures how well the retrieved context covers the information needed, evaluated against a ground truth reference. High recall indicates comprehensive retrieval.
+
+RAGAS evaluation requires user queries, generated answers, retrieved contexts (list of passages), and optionally reference answers. These inputs enable comprehensive evaluation.
+
+Guardrails AI is an open-source framework for adding validation and safety checks to LLM outputs with configurable on-fail actions. It enables robust output validation.
+
+PII (Personally Identifiable Information) detection is important in LLM responses because exposing PII can violate GDPR and HIPAA privacy regulations. Detecting and redacting PII is crucial for compliance.
+
+Structured output validation ensures that LLM responses conform to expected schemas such as JSON, detecting and fixing invalid formats. This enables reliable downstream processing.
+
+Constitutional AI is a technique where a model is given principles to follow and uses self-critique to improve its responses. This approach improves model alignment with human values.
+
+Common AI safety concerns with LLMs include hallucination (generating false information), toxicity, bias, PII leakage, and jailbreaking attacks. Addressing these concerns is essential for safe deployment.
