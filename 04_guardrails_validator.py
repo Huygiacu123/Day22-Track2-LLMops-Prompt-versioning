@@ -10,6 +10,11 @@ TASK:
 DELIVERABLE: All test cases pass (PII redacted, JSON repaired)
 """
 
+# Fix Unicode encoding on Windows FIRST
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
 import re
 import json
 
@@ -58,7 +63,7 @@ class PIIDetector(Validator):
                 found_pii.append((pii_type, match))
         
         if found_pii:
-            print(f"  ⚠️  Redacted {len(found_pii)} PII items: {[p[0] for p in found_pii]}")
+            print(f"  [REDACTED] {len(found_pii)} PII items: {[p[0] for p in found_pii]}")
             return PassResult(value_override=redacted_text)
         
         return PassResult(value_override=value)
@@ -89,7 +94,7 @@ class JSONFormatter(Validator):
         text = re.sub(r'\s*```$', '', text)
         text = text.strip()
         
-        # Single quotes → double quotes
+        # Single quotes -> double quotes
         text = text.replace("'", '"')
         
         # Remove trailing commas
@@ -115,11 +120,11 @@ class JSONFormatter(Validator):
             repaired_text = self._repair(value)
             parsed = json.loads(repaired_text)
             repaired = json.dumps(parsed, indent=2)
-            print(f"  🔧 JSON repaired successfully")
+            print(f"  [REPAIRED] JSON fixed successfully")
             return PassResult(value_override=repaired)
         except json.JSONDecodeError as e:
             error_msg = f"Invalid JSON after repair attempt: {str(e)[:50]}"
-            print(f"  ❌ {error_msg}")
+            print(f"  [FAILED] {error_msg}")
             return FailResult(error_message=error_msg)
 
 
@@ -145,7 +150,8 @@ def demo_pii_guard():
     
     for label, text in test_cases:
         result = guard.validate(text)
-        print(f"\n[{label}]")
+        status = "PASS" if result.validation_passed else "FAIL"
+        print(f"\n[{label}] {status}")
         print(f"  Input:  {text}")
         print(f"  Output: {result.validated_output}")
 
@@ -171,7 +177,7 @@ def demo_json_guard():
     
     for label, text in test_cases:
         result = guard.validate(text)
-        status = "✅ Pass" if result.validation_passed else "❌ Fail"
+        status = "PASS" if result.validation_passed else "FAIL"
         print(f"\n[{label}] {status}")
         print(f"  Input:  {text[:60]}")
         print(f"  Output: {str(result.validated_output)[:80]}")
@@ -187,7 +193,7 @@ def main():
     demo_json_guard()
     
     print("\n" + "=" * 70)
-    print("✅ Step 4 complete!")
+    print("[OK] Step 4 complete!")
     print("=" * 70)
 
 
